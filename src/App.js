@@ -10,7 +10,9 @@ import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home.jsx";
 import ProfileComponent from "./components/ProfileComponent/ProfileComponent.jsx";
 import "./App.css";
+import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy.js"
 import { Navigate } from "react-router-dom";
+
 const App = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -85,16 +87,7 @@ const App = () => {
   };
 
   const updateProductList = () => {
-    // Assuming you want to add a new product manually
-    setProducts((products) => [
-      ...products,
-      {
-        productId: products.length + 1, // Simulating a new product ID
-        productName: `Product ${products.length + 1}`,
-        price: 100 + products.length * 10, // Simulating a price
-        description: `Product ${products.length + 1} description`,
-      },
-    ]);
+    fetchProducts(); // Call fetchProducts to refresh the product list
   };
 
   const calculateItemCount = () => {
@@ -143,6 +136,7 @@ const App = () => {
         />
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={user ? <ProfileComponent user={user} /> : <Navigate to="/login" />} />
+          <Route path="/privacypolicy" element={PrivacyPolicy}/>
       </Routes>
       <Footer />
     </div>

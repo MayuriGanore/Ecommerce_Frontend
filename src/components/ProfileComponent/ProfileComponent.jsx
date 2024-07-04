@@ -20,16 +20,16 @@ const ProfileComponent = ({ user }) => {
     setIsEditing(true);
   };
 
-  const handleSaveClick = async () => {
-    setIsEditing(false);
-    try {
-      await axios.put("http://localhost:8085/api/profile", profile);
-      const response = await axios.get("http://localhost:8085/api/profile");
-      setProfile(response.data);
-    } catch (error) {
-      console.error("Error saving profile data:", error);
-    }
-  };
+  // const handleSaveClick = async () => {
+  //   setIsEditing(false);
+  //   try {
+  //     await axios.put("http://localhost:8085/api/profile", profile);
+  //     const response = await axios.get("http://localhost:8085/api/profile");
+  //     setProfile(response.data);
+  //   } catch (error) {
+  //     console.error("Error saving profile data:", error);
+  //   }
+  // };
 
   return (
     <div className="profile-container">
@@ -91,7 +91,6 @@ const ProfileComponent = ({ user }) => {
             onChange={handleChange}
             placeholder="Password"
           />
-          <button onClick={handleSaveClick}>Save</button>
         </div>
       ) : (
         <div className="profile-details">
@@ -108,7 +107,6 @@ const ProfileComponent = ({ user }) => {
           <p>Email: {profile.email}</p>
           <p>Address: {profile.address}</p>
           <p>Phone: {profile.phone}</p>
-          <button onClick={handleEditClick}>Edit Profile</button>
         </div>
       )}
     </div>

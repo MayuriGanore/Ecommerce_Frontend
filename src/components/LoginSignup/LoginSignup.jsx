@@ -21,8 +21,10 @@ const LoginSignup = ({ onUserUpdate }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [acceptedPrivacyPolicy, setAcceptedPrivacyPolicy] = useState(false);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
   const handleActionChange = (newAction) => {
     setAction(newAction);
     setFirstName("");
@@ -35,6 +37,7 @@ const LoginSignup = ({ onUserUpdate }) => {
     setPhoneNumber("");
     setErrors({});
     setServerError("");
+    setAcceptedPrivacyPolicy(false);
   };
 
   const validateForm = () => {
@@ -63,12 +66,18 @@ const LoginSignup = ({ onUserUpdate }) => {
       if (password !== confirmPassword) {
         newErrors.confirmPassword = "Passwords do not match";
       }
+      if (!acceptedPrivacyPolicy) {
+        newErrors.acceptedPrivacyPolicy = "You must accept the privacy policy";
+      }
     } else if (action === "Login") {
       if (!userName) newErrors.userName = "Username is required";
       if (!password) {
         newErrors.password = "Password is required";
       } else if (password.length < 6) {
         newErrors.password = "Password must be at least 6 characters";
+      }
+      if (!acceptedPrivacyPolicy) {
+        newErrors.acceptedPrivacyPolicy = "You must accept the privacy policy";
       }
     }
 
@@ -133,6 +142,7 @@ const LoginSignup = ({ onUserUpdate }) => {
         setPhoneNumber("");
         setErrors({});
         setLoading(false);
+        setAcceptedPrivacyPolicy(false);
       } catch (error) {
         console.error("Error during submission:", error);
         setLoading(false);
@@ -257,6 +267,18 @@ const LoginSignup = ({ onUserUpdate }) => {
                       <span className="error">{errors.confirmPassword}</span>
                     )}
                   </div>
+                  <div className="input checkbox">
+                    <input
+                      type="checkbox"
+                      checked={acceptedPrivacyPolicy}
+                      onChange={(e) => setAcceptedPrivacyPolicy(e.target.checked)}
+                      required
+                    />
+                    <label>I accept the privacy policy</label>
+                    {errors.acceptedPrivacyPolicy && (
+                      <span className="error">{errors.acceptedPrivacyPolicy}</span>
+                    )}
+                  </div>
                 </>
               )}
               {action === "Login" && (
@@ -287,11 +309,23 @@ const LoginSignup = ({ onUserUpdate }) => {
                       <span className="error">{errors.password}</span>
                     )}
                   </div>
+                  <div className="input checkbox">
+                    <input
+                      type="checkbox"
+                      checked={acceptedPrivacyPolicy}
+                      onChange={(e) => setAcceptedPrivacyPolicy(e.target.checked)}
+                      required
+                    />
+                    <label>I accept the privacy policy</label>
+                    {errors.acceptedPrivacyPolicy && (
+                      <span className="error">{errors.acceptedPrivacyPolicy}</span>
+                    )}
+                  </div>
                 </>
               )}
             </div>
             <div className="forgot-password">
-              Lost Password?{" "}
+              Forget Password?{" "}
               <span onClick={() => setView("lostPassword")}>Click Here</span>
             </div>
             <div className="submit-container">

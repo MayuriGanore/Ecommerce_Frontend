@@ -61,12 +61,13 @@ const ProductDashboard = ({ products, addToCart, removeFromCart, updateProductLi
           <option value="name-desc">Name: Z to A</option>
         </select>
 
-        <button className="update-product-list" onClick={updateProductList}>
+        <button
+          className="update-product-list"
+          onClick={() => {
+            updateProductList();
+          }}
+        >
           Update Product List
-        </button>
-
-        <button className="add-products" onClick={() => setShowAddProduct(true)}>
-          Add Product
         </button>
       </div>
       <div className="product-list">
