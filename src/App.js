@@ -139,6 +139,7 @@ const App = () => {
           <Route path="/privacypolicy" element={PrivacyPolicy}/>
       </Routes>
       <Footer />
+      <p>Learn React</p> {/* Add this line temporarily */}
     </div>
   );
 };
